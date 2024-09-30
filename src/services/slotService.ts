@@ -7,6 +7,7 @@ import { getUserById } from "./userService";
 import { getDateTimeFromSupabase, getSupabaseDateTime } from "@/utils/dateAndTime";
 import { getCallForSlot } from "./callService";
 import { PostgrestError } from "@supabase/supabase-js";
+import { revalidatePath } from "next/cache";
 
 /**
  * 
@@ -129,6 +130,9 @@ export async function deleteSlot(id: string) {
     } catch (error) {    
         console.log(`CATCHED ERROR --> `,error);
     }
+
+    revalidatePath('calendar', 'page');
+    revalidatePath('app', 'page');
 }
 
 /**
@@ -161,6 +165,7 @@ export async function createSlot(date: string, time: string): Promise<PostgrestE
             return error;
         }
 
+        revalidatePath('calendar', 'page');
     } catch (error) {    
         console.log(`CATCHED ERROR --> `,error);
     }
@@ -183,7 +188,7 @@ export async function getSlotsByArrayIds(ids: string[]): Promise<ServiceResponse
         ids.map(async (id): Promise<CalendarSlot> => {
             //Gets the slot data.
             const {data: slot } = await getSlotById(id);
-            
+
             if(slot) {
                 // Gets the user data
                 const {data: userData } = await getUserById(slot.created_by);

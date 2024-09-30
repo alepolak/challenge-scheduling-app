@@ -7,6 +7,7 @@ import { getUserById } from "./userService";
 import { User } from "@/types/Users";
 import { CalendarSlot } from "@/types/Calendar";
 import { getSlotsByArrayIds } from "./slotService";
+import { revalidatePath } from "next/cache";
 
 /**
  * 
@@ -91,6 +92,9 @@ export async function completeCall(id: string): Promise<ServiceResponse<undefine
         response.error = error;
     }
 
+    revalidatePath('app', 'page');
+    revalidatePath('calendar', 'page');
+
     // This right here is needed, because we are using it in a useEffect that is not a server function.
     return JSON.parse(JSON.stringify(response));
 };
@@ -129,6 +133,8 @@ export async function createCall(slotId: string, student: User, coach: User): Pr
     }
 
     response.data = data;
+    revalidatePath('app', 'page');
+    revalidatePath('calendar', 'page');
 
     return response;
 }
@@ -281,6 +287,8 @@ export async function saveCallNote(callId: string, isCallOver: boolean, satisfac
         return response;
     }
 
+    revalidatePath('app', 'page');
+    revalidatePath('calendar', 'page');
     // This right here is needed, because we are using it in a useEffect that is not a server function.
     return JSON.parse(JSON.stringify(response));
 }   
