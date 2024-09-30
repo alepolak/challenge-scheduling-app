@@ -1,0 +1,42 @@
+.call {
+    border: 1px dotted white; /* TODO: update with a color token*/
+    padding: 0.5rem; /* TODO: update with a spacing token*/
+    border-radius: 0.5rem; /* TODO: update with a spacing token*/
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    gap: 0.5rem; /* TODO: update with a spacing token*/
+}
+
+.status {
+    width: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.5rem; /* TODO: update with a spacing token*/
+}
+
+.studentName {
+    text-align: center;
+}
+
+.contactData {
+    padding-left: 1rem; /* TODO: update with a spacing token*/
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.reviewData {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.open {
+    text-align: center;
+}
