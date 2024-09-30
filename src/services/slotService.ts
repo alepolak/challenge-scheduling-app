@@ -1,3 +1,4 @@
+'use server'
 import { createClient } from "@/supabase/server";
 import { SLOT_TABLE } from "@/supabase/tableNames";
 import { CalendarSlot } from "@/types/Calendar";
@@ -75,27 +76,30 @@ export async function getSlotsByCreator(id: string): Promise<ServiceResponse<Cal
         return { error: error, data: []};
     }
 
-    // Get the user data for that coach.
-    const {data: userData, error: userDataError} = await getUserById(data[0].created_by);
+    // If there is any slots by that coach.
+    if(data.length > 0) {
+        // Get the user data for that coach.
+        const {data: userData, error: userDataError} = await getUserById(data[0].created_by);
 
-    if(userDataError) {
-        console.log(`ERROR while getting slots with ID --> `, error);
-        return { error: userDataError, data: []};
+        if(userDataError) {
+            console.log(`ERROR while getting slots with ID --> `, error);
+            return { error: userDataError, data: []};
+        }
+        
+        // Complete the slots with the call.
+        slotsData = await Promise.all(
+            data.map(async (slot): Promise<CalendarSlot> => {
+                const {data: call } = await getCallForSlot(slot.id);
+
+                return {
+                    call: call,
+                    coach: userData,
+                    date: getDateTimeFromSupabase(slot.date_time),
+                    id: slot.id
+                } as CalendarSlot;
+            })
+        );
     }
-    
-    // Complete the slots with the call.
-    slotsData = await Promise.all(
-        data.map(async (slot): Promise<CalendarSlot> => {
-            const {data: call } = await getCallForSlot(slot.id);
-
-            return {
-                call: call,
-                coach: userData,
-                date: getDateTimeFromSupabase(slot.date_time),
-                id: slot.id
-            } as CalendarSlot;
-        })
-    );
 
     return {error: null, data: slotsData};
 }

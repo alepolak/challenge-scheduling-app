@@ -1,3 +1,4 @@
+'use server'
 import { createClient } from "@/supabase/server";
 import { CALL_TABLE } from "@/supabase/tableNames";
 import { Call } from "@/types/Call";

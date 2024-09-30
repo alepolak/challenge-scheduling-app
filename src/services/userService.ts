@@ -1,9 +1,16 @@
+'use server'
 import { createClient } from "@/supabase/server";
 import { COACH_TABLE, USER_DATA_TABLE } from "@/supabase/tableNames";
 import { ServiceResponse } from "@/types/ServiceResponse";
 import { User } from "@/types/Users";
 import { SignInWithPasswordCredentials } from "@supabase/supabase-js";
 
+/**
+ * 
+ * Sign in using supabase client.
+ * 
+ * @param signInData email and password
+ */
 export async function signIn(signInData: SignInWithPasswordCredentials): Promise<ServiceResponse<void>> {
     const response: ServiceResponse<void> = new ServiceResponse();
     const supabase = createClient();
@@ -19,6 +26,11 @@ export async function signIn(signInData: SignInWithPasswordCredentials): Promise
     return response;
 };
 
+/**
+ * 
+ *  Sign out using supbase client.
+ * 
+ */
 export async function signOut(): Promise<ServiceResponse<void>> {
     const response: ServiceResponse<void> = new ServiceResponse();
     const supabase = createClient();
@@ -34,6 +46,13 @@ export async function signOut(): Promise<ServiceResponse<void>> {
     return response;
 };
 
+
+/**
+ * 
+ * Gets the logged user data.
+ * 
+ * @returns the logged user data.
+ */
 export async function getUser(): Promise<ServiceResponse<User>> {
     const supabase = createClient();   
     const {data: { user }, error} = await supabase.auth.getUser();
@@ -45,6 +64,16 @@ export async function getUser(): Promise<ServiceResponse<User>> {
     return {data: null, error: error};
 };
 
+/**
+ * 
+ * Get the user data by the user id.
+ * Why do we need this? In supabase there is an auth api that solves all the auth process in a very
+ * simple way. That api uses the table public.auth that doesn't store a lot (we are using the id). I created
+ * a new user_data table with more information: name, phone, mail, etc.
+ * 
+ * @param id of the user data that we want to fetch
+ * @returns the user.
+ */
 export async function getUserById(id: string): Promise<ServiceResponse<User>> {
     const response: ServiceResponse<User> = new ServiceResponse();
     const supabase = createClient();   
@@ -75,6 +104,7 @@ export async function getUserById(id: string): Promise<ServiceResponse<User>> {
             return response;
         }
 
+        
         // Generate the user
         const loggedUser: User = {
             email: userData.email || " ",
