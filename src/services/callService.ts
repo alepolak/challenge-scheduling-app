@@ -250,3 +250,37 @@ export async function getCall(id: string): Promise<ServiceResponse<Call>> {
     return JSON.parse(JSON.stringify(response));
 };
 
+/**
+ * 
+ * Saves the call note information.
+ * 
+ * @param callId id of the call.
+ * @param isCallOver boolean if the call is over or not.
+ * @param satisfaction user satisfaction. Range from 1-5.
+ * @param note note that the coach took forom the call.
+ * @returns 
+ */
+export async function saveCallNote(callId: string, isCallOver: boolean, satisfaction: number, note: string): Promise<ServiceResponse<null>> {
+    const response: ServiceResponse<null> = new ServiceResponse();
+
+    const supabase = await createClient();
+
+    // Checks data
+    satisfaction = Math.min(Math.max(satisfaction, 0), 5);
+
+    // Saves the data into the db.
+    const { error } = await supabase
+        .from(CALL_TABLE)
+        .update([{'is_completed': isCallOver, 'user_satisfaction': satisfaction, 'note': note}])
+        .eq('id', callId)
+        .select();
+
+    if(error) {
+        console.log(`ERROR saving the call data --> `, error);
+        response.error = error;
+        return response;
+    }
+
+    // This right here is needed, because we are using it in a useEffect that is not a server function.
+    return JSON.parse(JSON.stringify(response));
+}   

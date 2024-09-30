@@ -1,0 +1,78 @@
+.formComponent {
+    height: calc(100dvh - var(--banner-bar-height));
+    max-width: 700px;
+    width: 100%;
+    padding: 0 1rem; /* TODO: replace with spacing token */
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: 1rem;  /* TODO: replace with spacing token */
+}
+
+.studentName {
+    text-align: center;
+}
+
+.contactData {
+    padding-left: 1rem;  /* TODO: replace with spacing token */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;  /* TODO: replace with spacing token */
+}
+
+.inputs {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 25rem;
+    gap: 1rem;  /* TODO: replace with spacing token */
+}
+
+.sliderValue {
+    text-align: center;
+}
+
+.topInput {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.inputContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;  /* TODO: replace with spacing token */
+    width: 50%;
+}
+
+.noteInputContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;  /* TODO: replace with spacing token */
+}
+
+.noteInput {
+    margin: 0.5rem;  /* TODO: replace with spacing token */
+    padding: 0.5rem;  /* TODO: replace with spacing token */
+    height: 18.75rem;
+    text-align: start;
+}
+
+.buttons {
+    height: var(--banner-bar-height);
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 2rem;  /* TODO: replace with spacing token */
+}
