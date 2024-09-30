@@ -3,6 +3,7 @@ import { CALL_TABLE } from "@/supabase/tableNames";
 import { Call } from "@/types/Call";
 import { ServiceResponse } from "@/types/ServiceResponse";
 import { getUserById } from "./userService";
+import { User } from "@/types/Users";
 
 /**
  * 
@@ -90,3 +91,41 @@ export async function completeCall(id: string): Promise<ServiceResponse<undefine
     // This right here is needed, because we are using it in a useEffect that is not a server function.
     return JSON.parse(JSON.stringify(response));
 };
+
+/**
+ * 
+ * Creates a new call between a student and a coach for a specific slot.
+ * 
+ * @param slotId slot where the call is going to be created.
+ * @param student that created the call.
+ * @param coach that created the slot and is involved in the call.
+ * @returns 
+ */
+export async function createCall(slotId: string, student: User, coach: User): Promise<ServiceResponse<null>> {
+    const response: ServiceResponse<null> = new ServiceResponse();
+    const supabase = await createClient();
+
+    // Prepare data to be inserted
+    const newCall = {
+        slot_id: slotId,
+        student_id: student.id,
+        coach_id: coach.id,        
+    };
+
+    // Insert the data on the db.
+    const {data, error} = await supabase
+        .from(CALL_TABLE)
+        .insert([newCall])
+        .select()
+        .single()
+
+    if(error) {
+        console.error(`ERROR creating a new call-->`, error);
+        response.error = error;
+        return response;
+    }
+
+    response.data = data;
+
+    return response;
+}

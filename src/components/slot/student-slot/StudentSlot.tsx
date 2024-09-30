@@ -5,6 +5,7 @@ import styles from './StudentSlot.module.css';
 import { User } from '@/types/Users';
 import SlotStatusIcon from '../slot-status-icon/SlotStatusIcon';
 import IconButton from '@/components/buttons/icon-button/IconButton';
+import { createCall } from '@/services/callService';
 
 export interface StudentSlotPropType {
     slot: CalendarSlot;
@@ -14,7 +15,7 @@ export interface StudentSlotPropType {
 const StudentSlot: React.FC<StudentSlotPropType> = (props): JSX.Element => {
    
     const handleCreateCall = async () => {
-        
+        createCall(props.slot.id, props.student, props.slot.coach);
     }
 
     return (
