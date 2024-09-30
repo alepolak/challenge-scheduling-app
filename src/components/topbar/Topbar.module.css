@@ -1,0 +1,17 @@
+.topBar {
+    height: var(--banner-bar-height);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem; /* TODO: change to spacing token*/
+}
+
+.buttonContainer {
+    width: 2rem;
+}
+
+.title {
+    font-weight: 400;
+    font-size: 1.5rem;  /* TODO: change to medium size font size*/
+}

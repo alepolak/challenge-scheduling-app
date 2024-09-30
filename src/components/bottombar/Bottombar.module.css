@@ -1,0 +1,18 @@
+.bottomBar {
+    height: var(--banner-bar-height);
+}
+
+.bottomButtons {
+    height: var(--banner-bar-height);
+    max-width: var(--app-max-width);
+    display: flex;
+    margin: 0 auto;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 0px -1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.bottomButtons a {
+    font-size: 1.5rem; /* TODO: change to medium size font size variable */
+}

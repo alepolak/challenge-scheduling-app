@@ -1,0 +1,7 @@
+.app {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    min-height: 100dvh;
+}
