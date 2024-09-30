@@ -15,6 +15,7 @@ export default async function Bottombar() {
                     (
                         <>
                             <Link href="/">🏠</Link>
+                            <Link href={"/profile"}>⚙️</Link>
                         </>
                     ) 
                     : 

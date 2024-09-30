@@ -1,0 +1,27 @@
+.user {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.5rem; /* TODO: Add token for spacing */
+}
+
+.name {
+    font-size: 1.5rem;  /* TODO: Add token for font size */
+}
+
+.contact {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.1rem;  /* TODO: Add token for spacing */
+}
+
+.form {
+    margin: 1rem;  /* TODO: Add token for spacing */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
