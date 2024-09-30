@@ -6,6 +6,7 @@ import Topbar from "@/components/topbar/Topbar";
 import { getUser } from "@/services/userService";
 import { signout } from "./action";
 import styles from './style.module.css';
+import TextButton from "@/components/buttons/text-button/TextButton";
 
 
 export default async function ProfilePage() {
@@ -28,7 +29,7 @@ export default async function ProfilePage() {
                 }
                 
                 <form className={styles.form}>
-                    <button formAction={signout}> Sign Out </button>
+                    <TextButton formAction={signout} text="Sign Out"/>
                 </form>
             </MainPage>
             <Bottombar/>

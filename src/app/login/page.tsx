@@ -3,6 +3,7 @@ import styles from './style.module.css';
 import MainPage from '@/components/main-page/MainPage';
 import Bottombar from '@/components/bottombar/Bottombar';
 import { login } from './actions';
+import TextButton from '@/components/buttons/text-button/TextButton';
 
 export default async function LoginPage() {
     return (
@@ -20,7 +21,7 @@ export default async function LoginPage() {
                             <input id="password" name="password" type="password" required />
                         </div>
                     </div>
-                    <button formAction={login}> Login </button>
+                    <TextButton formAction={login} text="Log In"/>
                 </form>
             </MainPage>
             <Bottombar/>
