@@ -1,0 +1,30 @@
+.call {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    gap: 0.5rem; /* TODO: replace with spacing token */
+}
+
+.status {
+    width: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.5rem;  /* TODO: replace with spacing token */
+}
+
+.open {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.coachName {
+    font-size: 1.75rem;  /* TODO: replace with bigger font size token */
+}
+
+.coachData {
+    text-align: center;
+}
