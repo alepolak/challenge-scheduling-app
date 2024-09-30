@@ -1,8 +1,20 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
 ## Getting Started
 
-First, run the development server:
+### Install the dependencies:
+```bash
+npm i
+```
+
+### Create local variables
+Create the `.env.local` file with these variables:
+```
+NEXT_PUBLIC_SUPABASE_URL=`PROJECT_URL`
+NEXT_PUBLIC_SUPABASE_ANON_KEY=`PROJECT KEY`
+```
+Shoot me an email for the `url` and the `public key` if needed. You can create your own supabase project if needed.
+
+### Start the project
+To start the proyect run the development server:
 
 ```bash
 npm run dev
@@ -14,23 +26,65 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Test it
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the app.
+Or you can test it at: [https://challenge-scheduling-app.vercel.app](https://challenge-scheduling-app.vercel.app/)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## How to use it?
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Log in - Log out
+You can go to the `/login` page using the bottom bar and pressing the 👤 button.
+
+![image](https://github.com/user-attachments/assets/2edae533-0a71-40d1-8ec9-10b62e4f18ad)
+
+Inside, you can use one of these users:
+- mail: coach1@mail.com pass: c1
+- mail: coach2@mail.com pass: c2
+- mail: coach3@mail.com pass: c3
+- mail: student1@mail.com pass: s1
+- mail: student2@mail.com pass: s2
+- mail: student3@mail.com pass: s3
+
+You can go to the `/profile` page using the bottom bar and pressing the ⚙️ button. You can log out from there.
+
+### Coach
+Being a Coach you can use the bottom bar for: 
+- create new Slots --> 📝
+- see all slots created --> 📅
+- see all slots with calls --> 🏠
+
+You can use the 🗑️ button on the slots to delete them.
+
+When you have a slot with a call, you can:
+- Use the 💾 button to finish the call.
+- User the ✏️ button to edit the satisfaction and add notes.
+
+### Student
+Being a Student you can use the bottom bar for: 
+- see all slots --> 📅
+- see all your slots with calls --> 🏠
+
+You can use the ➕ button on a free slot to create a call in it.
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+### Database diagram:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+![image](https://github.com/user-attachments/assets/13a9b467-28cd-4f26-bebd-661d9368070f)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Some examples of the tables:
+#### User Data
+![image](https://github.com/user-attachments/assets/f57796e4-56d3-4b22-ac33-cf115b02bd6a)
 
-## Deploy on Vercel
+#### Slot
+![image](https://github.com/user-attachments/assets/58ff3a53-f4fa-45ab-83fc-4339bb91d7da)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+#### Call
+![image](https://github.com/user-attachments/assets/2aefb872-3dba-43c1-b458-471e71dfb225)
+
+
+#### Coach
+![image](https://github.com/user-attachments/assets/6a379a12-77f2-4222-9865-7fd1a7e6c574)
+
+
