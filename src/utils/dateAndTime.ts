@@ -25,6 +25,20 @@ export const formatTime = (date: Date): string => {
     });
 };
 
+export const isDateInThePast = (selectedDate: string): boolean => {
+    return new Date(selectedDate) < new Date(getDateToday());
+};
+
+export const isTimeInThePast = (selectedTime: string): boolean => {
+    return selectedTime < getTimeNow();
+};
+
+export const getSupabaseDateTime = (date: string, time: string): string => {
+    const dateTimeString = `${date}T${time}:00`;
+    const dateTime = new Date(dateTimeString);
+    return dateTime.toISOString();
+};
+
 export const getDateTimeFromSupabase = (dateTime: string): Date => {
     const date = new Date(dateTime);
     return date;
