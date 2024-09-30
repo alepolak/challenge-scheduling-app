@@ -4,8 +4,9 @@ import { SLOT_TABLE } from "@/supabase/tableNames";
 import { CalendarSlot } from "@/types/Calendar";
 import { ServiceResponse } from "@/types/ServiceResponse";
 import { getUserById } from "./userService";
-import { getDateTimeFromSupabase } from "@/utils/dateAndTime";
+import { getDateTimeFromSupabase, getSupabaseDateTime } from "@/utils/dateAndTime";
 import { getCallForSlot } from "./callService";
+import { PostgrestError } from "@supabase/supabase-js";
 
 /**
  * 
@@ -129,3 +130,40 @@ export async function deleteSlot(id: string) {
         console.log(`CATCHED ERROR --> `,error);
     }
 }
+
+/**
+ * 
+ * Creates a new slot in the database.
+ * 
+ * @param date of the slot.
+ * @param time of the slot.
+ * @returns 
+ */
+export async function createSlot(date: string, time: string): Promise<PostgrestError | null | undefined> {
+    const supabase = createClient();
+    const {data: { user }} = await supabase.auth.getUser();
+
+    // Prepare the object to add.
+    const slotObject = {
+        created_by: user?.id,
+        date_time: getSupabaseDateTime(date, time),
+    };
+
+    try {
+        // Add the slot into the db.
+        const { error } = await supabase
+            .from(SLOT_TABLE)
+            .insert([slotObject])
+            .select();
+            
+        if (error) {    
+            console.log(`ERROR while creating a slot --> `,error);
+            return error;
+        }
+
+    } catch (error) {    
+        console.log(`CATCHED ERROR --> `,error);
+    }
+
+    return null;
+};

@@ -6,6 +6,7 @@ import { CalendarSlot } from '@/types/Calendar';
 import { getAllSlots } from '@/services/slotService';
 import { isSlotAvailable } from './utils';
 import TextButton from '@/components/buttons/text-button/TextButton';
+import { cancel, saveSlot } from './actions';
 
 const SlotCreationForm: React.FC = (): JSX.Element => {
     const [slots, saveSlots] = useState<CalendarSlot[] | null>(null);
@@ -29,14 +30,6 @@ const SlotCreationForm: React.FC = (): JSX.Element => {
                 setDate(event.target.value);
             }
         }
-    }
-    
-    const cancel = () => {
-
-    }
-
-    const saveSlot = () => {
-
     }
 
     // Handle time change
