@@ -136,7 +136,8 @@ export async function createCall(slotId: string, student: User, coach: User): Pr
     revalidatePath('app', 'page');
     revalidatePath('calendar', 'page');
 
-    return response;
+    // This right here is needed, because we are using it in a client component.
+    return JSON.parse(JSON.stringify(response));
 }
 
 /**
