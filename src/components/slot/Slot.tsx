@@ -3,6 +3,7 @@ import React from 'react';
 import styles from './Slot.module.css';
 import { User } from '@/types/Users';
 import { formatDate, formatTime } from '@/utils/dateAndTime';
+import CoachSlot from './coach-slot/CoachSlot';
 
 export interface SlotPropType {
     user: User;
@@ -21,7 +22,7 @@ const Slot: React.FC<SlotPropType> = (props): JSX.Element => {
                     {
                         props.user.type === 'coach' ?
                         (
-                            <div> {props.slot.coach.phoneNumber} </div>
+                            <CoachSlot slot={props.slot}/>
                         )
                         :
                         (
