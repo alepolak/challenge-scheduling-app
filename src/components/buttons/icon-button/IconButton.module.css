@@ -1,0 +1,13 @@
+.button {
+    cursor: pointer;
+}
+
+.icon {
+    height: 2.3125rem; /* TODO: check sizes */
+    width: 2.3125rem; /* TODO: check sizes */
+    padding: 0.5rem; /* TODO: replace with spacing token */
+    background-color: transparent;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 1px 1px 10px black; /* TODO: replace with color token */
+}
