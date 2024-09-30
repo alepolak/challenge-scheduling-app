@@ -14,6 +14,7 @@ export default async function Bottombar() {
                 { user ?
                     (
                         <>
+                            { user.type === 'coach' && <Link href="/slot/create">📝</Link> }
                             <Link href="/calendar">📅</Link>
                             <Link href="/">🏠</Link>
                             <Link href={"/profile"}>⚙️</Link>
@@ -22,7 +23,7 @@ export default async function Bottombar() {
                     : 
                     (
                         <>
-                            <Link href="/">🏠</Link>
+                            <Link href="/"> 🏠</Link>
                             <Link href={"/login"}>👤</Link>
                         </>
                     )
