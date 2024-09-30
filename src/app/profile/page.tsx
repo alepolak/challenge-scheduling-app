@@ -7,16 +7,24 @@ import { getUser } from "@/services/userService";
 import { signout } from "./action";
 import styles from './style.module.css';
 import TextButton from "@/components/buttons/text-button/TextButton";
+import NotificationBanner from "@/components/notifications/Notification";
+
+interface ProfilePageProps {
+    searchParams: { [key: string]: string | string[] | undefined };
+}
 
 
-export default async function ProfilePage() {
-    
+export default async function ProfilePage({ searchParams }: ProfilePageProps) {
+    const errorMessage = searchParams.error;
     const { data: user } = await getUser();
 
     return (
         <>
             <Topbar title="Profile"/>
             <MainPage>
+                <div className={styles.bannerSpace}>
+                    { errorMessage && <NotificationBanner type='error' message={errorMessage.toString()}/> }
+                </div>
                 {
                     user && 
                     <div className={styles.user}>

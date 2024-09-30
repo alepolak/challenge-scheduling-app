@@ -13,8 +13,7 @@ import { redirect } from "next/navigation";
  * 
  * @param signInData email and password
  */
-export async function signIn(signInData: SignInWithPasswordCredentials): Promise<ServiceResponse<void>> {
-    const response: ServiceResponse<void> = new ServiceResponse();
+export async function signIn(signInData: SignInWithPasswordCredentials) {
     const supabase = createClient();
 
     const { error } = await supabase.auth.signInWithPassword(signInData);
@@ -34,19 +33,20 @@ export async function signIn(signInData: SignInWithPasswordCredentials): Promise
  *  Sign out using supbase client.
  * 
  */
-export async function signOut(): Promise<ServiceResponse<void>> {
-    const response: ServiceResponse<void> = new ServiceResponse();
+export async function signOut() {
+
     const supabase = createClient();
     
     const { error } = await supabase.auth.signOut();
 
     if (error) {
         console.log(`ERROR - Signout --> error: `, error);    
-        response.error = error;
-        redirect(`/error/${error.code}`);
+        redirect(`/profile?error=${encodeURIComponent(error.message)}`);
     }
 
-    return response;
+    const redirectingTo = '/';
+    revalidatePath(redirectingTo, 'layout');
+    redirect(redirectingTo);
 };
 
 
