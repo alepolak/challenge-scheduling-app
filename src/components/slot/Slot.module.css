@@ -1,0 +1,27 @@
+.slot {
+    padding: 0.75rem; /* TODO: add spacing token */
+    border-radius: 1rem;  /* TODO: add spacing token */
+    box-shadow: 1px 1px 5px black;  /* TODO: add color token */
+}
+
+.main {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 0.5rem;  /* TODO: add spacing token */
+}
+
+.date {
+    height: 3rem;
+    width: 10rem;
+}
+
+.content {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 0.5rem;  /* TODO: add spacing token */
+}
