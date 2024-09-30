@@ -7,6 +7,7 @@ import { getAllSlots } from '@/services/slotService';
 import { isSlotAvailable } from './utils';
 import TextButton from '@/components/buttons/text-button/TextButton';
 import { cancel, saveSlot } from './actions';
+import NotificationBanner from '@/components/notifications/Notification';
 
 const SlotCreationForm: React.FC = (): JSX.Element => {
     const [slots, saveSlots] = useState<CalendarSlot[] | null>(null);
@@ -66,7 +67,7 @@ const SlotCreationForm: React.FC = (): JSX.Element => {
         <div className={styles.formComponent}>
             <form className={styles.form}>
                 <div className={styles.errorMessageContainer}> 
-                    {errorMessage && <p> ERROR </p>}
+                    {errorMessage && <NotificationBanner message={errorMessage} type='error'/>}
                 </div>
                 <div className={styles.inputs}>
                     <div className={styles.inputContainer}>

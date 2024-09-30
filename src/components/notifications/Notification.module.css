@@ -1,0 +1,15 @@
+.notification {
+    width: fit-content;
+    text-align: center;
+    padding: 0.5rem; /*TODO replace with spacing token */
+    border-radius: 0.5rem;  /*TODO replace with spacing token */
+}
+
+.error {
+    background-color: rgb(252, 141, 122);  /*TODO replace with color token */
+}
+
+
+.normal {
+    background-color: rgb(134, 171, 252);  /*TODO replace with color token */
+}
