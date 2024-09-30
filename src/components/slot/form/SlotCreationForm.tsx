@@ -16,8 +16,6 @@ const SlotCreationForm: React.FC = (): JSX.Element => {
 
     // Handle date change
     function handleDateChange(event: ChangeEvent<HTMLInputElement>): void {
-        console.log(`HANDLE DATE CHANGE`);
-        console.log(`HANDLE DATE CHANGE --> slots: `, slots);
         if(slots) {
             if (isDateInThePast(event.target.value)) {
                 setErrorMessage('The selected date cannot be in the past.');
