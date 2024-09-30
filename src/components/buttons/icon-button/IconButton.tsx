@@ -1,6 +1,6 @@
 'use client'
 import React, { ButtonHTMLAttributes } from 'react';
-import styles from './ButtonIcon.module.css';
+import styles from './IconButton.module.css';
 
 export interface IconButtonPropType extends ButtonHTMLAttributes<HTMLButtonElement>{
     icon: string;
