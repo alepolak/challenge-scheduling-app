@@ -4,6 +4,7 @@ import { COACH_TABLE, USER_DATA_TABLE } from "@/supabase/tableNames";
 import { ServiceResponse } from "@/types/ServiceResponse";
 import { User } from "@/types/Users";
 import { SignInWithPasswordCredentials } from "@supabase/supabase-js";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 /**
@@ -20,11 +21,12 @@ export async function signIn(signInData: SignInWithPasswordCredentials): Promise
 
     if (error) {
         console.log(`ERROR - Sign in --> error: `, error);    
-        response.error = error;
-        redirect(`/error/${error.code}`);
+        redirect(`/login?error=${encodeURIComponent(error.message)}`);
     }
 
-    return response;
+    const redirectingTo = '/';
+    revalidatePath(redirectingTo, 'layout');
+    redirect(redirectingTo);
 };
 
 /**

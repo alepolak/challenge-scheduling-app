@@ -24,3 +24,7 @@
     flex-direction: row;
     gap: 1rem; /* TODO: add spacing token */
 }
+
+.bannerSpace { 
+    height: var(--banner-bar-height);
+}
