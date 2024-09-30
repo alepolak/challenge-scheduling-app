@@ -99,3 +99,29 @@ export async function getSlotsByCreator(id: string): Promise<ServiceResponse<Cal
 
     return {error: null, data: slotsData};
 }
+
+/**
+ * 
+ * Delete one slot.
+ * 
+ * @param id of the slot to delete
+ */
+export async function deleteSlot(id: string) {
+    const supabase = createClient();
+
+    try {
+        // Deletes the slot from the db.
+        const { error } = await supabase
+            .from(SLOT_TABLE)
+            .delete()
+            .eq('id', id);
+        
+        if (error) {    
+            console.log(`ERROR while deleting a slot --> `,error);
+            return error;
+        }
+
+    } catch (error) {    
+        console.log(`CATCHED ERROR --> `,error);
+    }
+}
