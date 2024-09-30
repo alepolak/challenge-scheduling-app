@@ -6,6 +6,7 @@ import SlotLinkIcon from '../slot-link-icon/SlotLinkIcon';
 import SlotStatusIcon from '../slot-status-icon/SlotStatusIcon';
 import IconButton from '@/components/buttons/icon-button/IconButton';
 import { deleteSlot } from '@/services/slotService';
+import { completeCall } from '@/services/callService';
 
 export interface CoachSlotPropType {
     slot: CalendarSlot;
@@ -21,6 +22,7 @@ const CoachSlot: React.FC<CoachSlotPropType> = (props): JSX.Element => {
 
     const handleCompleteCall = async (): Promise<void> => {
         if(props.slot.call) {
+            completeCall(props.slot.call.id);
             setCallComplete(true);
         }
     }
