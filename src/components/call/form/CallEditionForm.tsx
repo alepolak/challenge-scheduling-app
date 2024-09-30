@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import styles from './CallEdititionForm.module.css';
+import styles from './CallEditionForm.module.css';
 import { Call } from '@/types/Call';
 import { cancel, saveCall } from './actions';
 import TextButton from '@/components/buttons/text-button/TextButton';
