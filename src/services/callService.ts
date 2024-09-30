@@ -189,4 +189,64 @@ export async function getCallIdsForUser(user: User): Promise<ServiceResponse<str
     }
 
     return response;
-}
+};
+
+
+/**
+ * 
+ * Get the call data from it's id.
+ * 
+ * @param id of the call.
+ * @returns the call data.
+ */
+export async function getCall(id: string): Promise<ServiceResponse<Call>> {
+    const response: ServiceResponse<Call> = new ServiceResponse();
+
+    const supbase = createClient();
+
+    // Get the call data from the db.
+    const { data, error } = await supbase
+        .from(CALL_TABLE)
+        .select('*')
+        .eq("id", id)
+        .single();
+
+    if(error) {
+        console.log(`ERROR getting a call with id: ${id}`, error);
+        response.error = error;
+    }
+
+    // Get the student user data.
+    const {data: studentUser, error: errorGettingStudent} = await getUserById(data.student_id);
+    if(errorGettingStudent) {
+        console.log(`ERROR getting call student for slot ${id} --> `, errorGettingStudent);
+        response.error = errorGettingStudent;
+        return response;
+    }
+    
+    // Get the coach user data.
+    const {data: coachUser, error: errorGettingCoach} = await getUserById(data.coach_id);
+    if(errorGettingCoach) {
+        console.log(`ERROR getting call coach for slot ${id} --> `, errorGettingCoach);
+        response.error = errorGettingCoach;
+        return response;
+    }
+    
+    if(studentUser && coachUser) {
+        const call = {
+            coach: coachUser,
+            id: data.id,
+            isCompleted: data.is_completed,
+            note: data.note,
+            student: studentUser,
+            studentSatisfaction: data.user_satisfaction,
+        };
+
+        response.data = call;
+    }
+
+
+    // This right here is needed, because we are using it in a useEffect that is not a server function.
+    return JSON.parse(JSON.stringify(response));
+};
+
