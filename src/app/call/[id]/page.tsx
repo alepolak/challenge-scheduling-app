@@ -1,4 +1,5 @@
 'use client'
+import CallEditionForm from "@/components/call/form/CallEditionForm";
 import Topbar from "@/components/topbar/Topbar";
 import { getCall } from "@/services/callService";
 import { Call } from "@/types/Call";
@@ -18,7 +19,6 @@ export default function CallEdititionPage(){
             const { data: callResponse} = await getCall(callId as string);
 
             if(callResponse) {
-                console.log(`SAVING CALL --> call: `, callResponse);
                 setCall(callResponse);
             }
         }
@@ -29,9 +29,7 @@ export default function CallEdititionPage(){
     return(
         <>
             <Topbar title="Editing Call"/>
-            <form>
-                Edit call information
-            </form>
+            { call && <CallEditionForm call={call}/> }
         </>
     );
 };
