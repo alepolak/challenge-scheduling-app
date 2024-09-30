@@ -5,6 +5,8 @@ import { Call } from "@/types/Call";
 import { ServiceResponse } from "@/types/ServiceResponse";
 import { getUserById } from "./userService";
 import { User } from "@/types/Users";
+import { CalendarSlot } from "@/types/Calendar";
+import { getSlotsByArrayIds } from "./slotService";
 
 /**
  * 
@@ -127,6 +129,64 @@ export async function createCall(slotId: string, student: User, coach: User): Pr
     }
 
     response.data = data;
+
+    return response;
+}
+
+/**
+ * 
+ * Get the slots of a user that have a call assigned to it.
+ * 
+ * @param user is going to be use to search for his calls.
+ * @returns array of slots with calls.
+ */
+export async function getCallSlotsForUser(user: User): Promise<ServiceResponse<CalendarSlot[]>> {
+    const response: ServiceResponse<CalendarSlot[]> = new ServiceResponse();
+
+    const callsIdsResponse = await getCallIdsForUser(user);
+
+    if(callsIdsResponse.error) {
+        console.log(`ERROR - getCallSlotsForUser - can't get call ids for user ${user.id}`, callsIdsResponse.error);
+    } else if(callsIdsResponse.data){
+        const { data } = await getSlotsByArrayIds(callsIdsResponse.data);
+        response.data = data;
+    }
+
+    return response;
+}
+
+/**
+ * 
+ * Get the call ids for a specific user.
+ * 
+ * @param user is going to be use to search for his calls.
+ * @returns arrat of ids of calls.
+ */
+export async function getCallIdsForUser(user: User): Promise<ServiceResponse<string[]>> {
+
+    const response: ServiceResponse<string[]> = new ServiceResponse();
+
+    if(user) {     
+        const supabase = await createClient();
+        
+        // sets which column is going to check against. 
+        const fk = user.type === 'coach' ? 'coach_id' : 'student_id';
+
+        // Gets the call data from the db.
+        const {data, error} = await supabase
+            .from(CALL_TABLE)
+            .select('*')
+            .eq(fk, user.id);
+
+        if(error) {
+            console.log(`ERROR getting call for id: ${user.id}`, error);
+            response.error = error;
+            return response;
+        }
+
+        response.data = data.map(callData => callData.slot_id);
+        return response;
+    }
 
     return response;
 }

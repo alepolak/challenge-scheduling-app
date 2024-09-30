@@ -167,3 +167,80 @@ export async function createSlot(date: string, time: string): Promise<PostgrestE
 
     return null;
 };
+
+/**
+ * 
+ * Gets all the slots by the ids.
+ * 
+ * @param ids of slots.
+ * @returns an array of slots based on the ids.
+ */
+export async function getSlotsByArrayIds(ids: string[]): Promise<ServiceResponse<CalendarSlot[]>> {
+    
+    const response: ServiceResponse<CalendarSlot[]> = new ServiceResponse();
+
+    const slots: CalendarSlot[] = await Promise.all(
+        ids.map(async (id): Promise<CalendarSlot> => {
+            //Gets the slot data.
+            const {data: slot } = await getSlotById(id);
+            
+            if(slot) {
+                // Gets the user data
+                const {data: userData } = await getUserById(slot.created_by);
+
+                // Gets the call data.
+                const {data: call } = await getCallForSlot(slot.id);
+                
+                return {
+                    call: call,
+                    coach: userData,
+                    date: getDateTimeFromSupabase(slot.date_time),
+                    id: slot.id
+                } as CalendarSlot;
+            }
+            return {} as CalendarSlot;
+        })
+    );
+
+    response.data = slots;
+
+    return response;
+}
+
+
+interface SlotData {
+    id: string,
+    created_at: string;
+    created_by: string;
+    date_time: string;
+}
+
+/**
+ * 
+ * Get the slot db data with an id.
+ * 
+ * @param id of a slot.
+ * @returns slot db data.
+ */
+async function getSlotById(id: string): Promise<ServiceResponse<SlotData>> {
+
+    const response: ServiceResponse<SlotData> = new ServiceResponse();
+    const supabase = createClient();
+
+    // Gets the slot of the db based on the id.
+    const { data, error } = await supabase
+        .from(SLOT_TABLE)
+        .select('*')
+        .eq('id', id)
+        .single();
+
+    if(error) {
+        console.log(`ERROR getting slot by id: ${id}`, error);
+        response.error = error;
+        return response;
+    }
+
+    response.data = data;
+
+    return response;
+}
