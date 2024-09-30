@@ -4,6 +4,7 @@ import { COACH_TABLE, USER_DATA_TABLE } from "@/supabase/tableNames";
 import { ServiceResponse } from "@/types/ServiceResponse";
 import { User } from "@/types/Users";
 import { SignInWithPasswordCredentials } from "@supabase/supabase-js";
+import { redirect } from "next/navigation";
 
 /**
  * 
@@ -20,7 +21,7 @@ export async function signIn(signInData: SignInWithPasswordCredentials): Promise
     if (error) {
         console.log(`ERROR - Sign in --> error: `, error);    
         response.error = error;
-        return response;
+        redirect(`/error/${error.code}`);
     }
 
     return response;
@@ -40,7 +41,7 @@ export async function signOut(): Promise<ServiceResponse<void>> {
     if (error) {
         console.log(`ERROR - Signout --> error: `, error);    
         response.error = error;
-        return response;
+        redirect(`/error/${error.code}`);
     }
 
     return response;
